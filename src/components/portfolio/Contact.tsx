@@ -2,13 +2,24 @@ import { Reveal, RevealText } from "./ScrollReveal";
 
 const LINKS = [
   { label: "Phone", href: "tel:+919344710273", value: "+91 9344710273" },
-  { label: "Email", href: "mailto:manjuladevimari8@gamil.com", value: "manjuladevimari8@gamil.com" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/manjula-devi-97286b35a", value: "in/manjula-devi-97286b35a" },
+  {
+    label: "Email",
+    href: "mailto:manjuladevimari8@gamil.com",
+    value: "manjuladevimari8@gamil.com",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://linkedin.com/in/manjula-devi-97286b35a",
+    value: "in/manjula-devi-97286b35a",
+  },
 ];
 
 export function Contact() {
   return (
-    <section id="contact" className="relative py-32 md:py-56 px-6 md:px-10 pl-12 sm:pl-16 lg:pl-10 border-t border-border">
+    <section
+      id="contact"
+      className="relative py-32 md:py-56 px-6 md:px-10 pl-12 sm:pl-16 lg:pl-10 border-t border-border"
+    >
       <div className="mx-auto max-w-[1600px]">
         <Reveal>
           <p className="text-xs tracking-[0.25em] uppercase text-secondary-foreground mb-16">

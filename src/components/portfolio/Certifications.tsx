@@ -6,20 +6,25 @@ const CERTIFICATIONS = [
     platform: "EDUCBA",
     provider: "Skillup101",
     year: "2025",
-    description: "Comprehensive curriculum in advanced Python programming constructs, functional and object-oriented architectures."
+    description:
+      "Comprehensive curriculum in advanced Python programming constructs, functional and object-oriented architectures.",
   },
   {
     title: "Web Development Internship Certificate",
     platform: "Cognifyz Technologies",
     provider: "Cognifyz Technologies",
     year: "2026",
-    description: "Awarded for the successful execution of internship deliverables focused on responsive design, UI standards, and site performance."
-  }
+    description:
+      "Awarded for the successful execution of internship deliverables focused on responsive design, UI standards, and site performance.",
+  },
 ];
 
 export function Certifications() {
   return (
-    <section id="certifications" className="relative py-32 md:py-56 px-6 md:px-10 pl-12 sm:pl-16 lg:pl-10 border-t border-border bg-transparent">
+    <section
+      id="certifications"
+      className="relative py-32 md:py-56 px-6 md:px-10 pl-12 sm:pl-16 lg:pl-10 border-t border-border bg-transparent"
+    >
       <div className="mx-auto max-w-[1600px]">
         <div className="grid grid-cols-12 gap-8 mb-24">
           <div className="col-span-12 md:col-span-4">
@@ -47,9 +52,7 @@ export function Certifications() {
                     <span className="text-xs tracking-[0.2em] uppercase text-secondary-foreground font-semibold">
                       {c.year}
                     </span>
-                    <span className="text-xs text-muted-foreground">
-                      Platform: {c.platform}
-                    </span>
+                    <span className="text-xs text-muted-foreground">Platform: {c.platform}</span>
                   </div>
                   <h3 className="text-2xl md:text-3xl font-medium tracking-tight text-black mb-3">
                     {c.title}

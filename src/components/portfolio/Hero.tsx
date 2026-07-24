@@ -20,8 +20,8 @@ export function Hero() {
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
-      mx.set((e.clientX / window.innerWidth) - 0.5);
-      my.set((e.clientY / window.innerHeight) - 0.5);
+      mx.set(e.clientX / window.innerWidth - 0.5);
+      my.set(e.clientY / window.innerHeight - 0.5);
     };
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
@@ -42,7 +42,7 @@ export function Hero() {
         stagger: 0.14,
         ease: "power4.out",
         delay: 0.25,
-      }
+      },
     );
 
     // Summary fade + translate
@@ -56,7 +56,7 @@ export function Hero() {
         duration: 1.2,
         ease: "power3.out",
         delay: 1.0,
-      }
+      },
     );
   }, []);
 
@@ -68,7 +68,10 @@ export function Hero() {
       ref={ref}
       className="relative min-h-[110vh] w-full flex flex-col justify-between pt-32 pb-16 px-6 md:px-10 pl-12 sm:pl-16 lg:pl-10 overflow-hidden"
     >
-      <motion.div style={{ scale, opacity, y, filter }} className="flex-1 flex flex-col justify-center will-change-transform">
+      <motion.div
+        style={{ scale, opacity, y, filter }}
+        className="flex-1 flex flex-col justify-center will-change-transform"
+      >
         <div className="mx-auto w-full max-w-[1600px]">
           <motion.h1
             style={{ x: tx, y: ty }}
@@ -76,9 +79,7 @@ export function Hero() {
           >
             {lines.map((line, i) => (
               <span key={i} className="block overflow-hidden pb-[0.05em]">
-                <span className="hero-line-word block translate-y-[115%]">
-                  {line}
-                </span>
+                <span className="hero-line-word block translate-y-[115%]">{line}</span>
               </span>
             ))}
           </motion.h1>
@@ -89,10 +90,9 @@ export function Hero() {
         style={{ opacity }}
         className="mx-auto w-full max-w-[1600px] flex flex-col md:flex-row md:items-end md:justify-between gap-8"
       >
-        <div
-          className="hero-summary max-w-md text-secondary-foreground text-base md:text-lg leading-relaxed font-light opacity-0"
-        >
-          Computer Science graduate skilled in full-stack web development, expanding expertise in React.js, Artificial Intelligence, and Machine Learning.
+        <div className="hero-summary max-w-md text-secondary-foreground text-base md:text-lg leading-relaxed font-light opacity-0">
+          Computer Science graduate skilled in full-stack web development, expanding expertise in
+          React.js, Artificial Intelligence, and Machine Learning.
         </div>
         <motion.div
           initial={{ opacity: 0 }}

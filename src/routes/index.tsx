@@ -11,8 +11,6 @@ import { Certifications } from "@/components/portfolio/Certifications";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
 import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
-import { CustomCursor } from "@/components/portfolio/CustomCursor";
-import { JourneyPath } from "@/components/portfolio/JourneyPath";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -39,10 +37,8 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <SmoothScrollProvider>
-      <CustomCursor />
       <ScrollProgress />
       <main className="bg-white text-black relative z-10">
-        <JourneyPath />
         <Navbar />
         <Hero />
         <About />

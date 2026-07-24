@@ -1,19 +1,56 @@
 import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal, RevealText } from "./ScrollReveal";
 
 export function About() {
   const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end end"],
+  });
+  const pathLength = useTransform(scrollYProgress, [0.05, 0.95], [0, 1]);
 
   return (
-    <section id="about" ref={ref} className="relative bg-transparent text-black py-32 md:py-56 px-6 md:px-10 pl-12 sm:pl-16 lg:pl-10 border-t border-border">
-      <div className="mx-auto max-w-[1600px] grid grid-cols-12 gap-8">
-        
+    <section
+      id="about"
+      ref={ref}
+      className="relative bg-transparent text-black py-32 md:py-56 px-6 md:px-10 pl-12 sm:pl-16 lg:pl-10 border-t border-border"
+    >
+      {/* Background SVG Follow Scroll (Skiper19) */}
+      <div className="absolute inset-0 z-0 pointer-events-none select-none opacity-20">
+        <svg
+          viewBox="0 0 1400 3000"
+          preserveAspectRatio="none"
+          className="w-full h-full"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M 1200 150 C 900 100, 300 400, 300 700 C 300 1000, 1100 900, 1100 1300 C 1100 1700, 200 1600, 200 2000 C 200 2400, 1200 2300, 900 2850"
+            fill="none"
+            stroke="#f3f4f6"
+            strokeWidth="8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <motion.path
+            d="M 1200 150 C 900 100, 300 400, 300 700 C 300 1000, 1100 900, 1100 1300 C 1100 1700, 200 1600, 200 2000 C 200 2400, 1200 2300, 900 2850"
+            fill="none"
+            stroke="#C2F84F"
+            strokeWidth="9"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ pathLength }}
+          />
+        </svg>
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-[1600px] grid grid-cols-12 gap-8">
         {/* Left Column: Sticky profile card - active on all devices */}
         <div className="col-span-12 lg:col-span-4 lg:sticky lg:top-24 h-fit space-y-4 md:space-y-8 mb-12 lg:mb-0">
           <div>
             <Reveal>
               <p className="text-[10px] md:text-xs tracking-[0.25em] uppercase text-secondary-foreground mb-4 md:mb-6">
-                Technical Journey
+                About
               </p>
             </Reveal>
             <Reveal delay={0.1}>
@@ -31,7 +68,6 @@ export function About() {
 
         {/* Right Column: Conversational narrative stages */}
         <div className="col-span-12 lg:col-span-8 space-y-24 md:space-y-48">
-          
           {/* Main Title & Subtitle */}
           <div className="min-h-[50vh] flex flex-col justify-center">
             <RevealText
@@ -40,7 +76,10 @@ export function About() {
               className="text-5xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.9] text-black uppercase mb-10"
             />
             <div className="max-w-xl text-lg md:text-xl text-secondary-foreground font-light leading-relaxed mt-6 space-y-4">
-              <RevealText text="Every journey starts with a simple question: 'How does this work?'" className="text-black font-normal" />
+              <RevealText
+                text="Every journey starts with a simple question: 'How does this work?'"
+                className="text-black font-normal"
+              />
               <RevealText text="Mine started the same way." />
               <RevealText text="I was always fascinated by the technology around me—not just using it, but understanding how it was built. That curiosity eventually led me to pursue a Bachelor's degree in Computer Science and Engineering at Anand Institute of Higher Technology, where I discovered that programming was much more than writing code. It was a way to turn ideas into reality." />
             </div>
@@ -78,7 +117,10 @@ export function About() {
               className="text-3xl md:text-5xl font-medium tracking-tight text-black"
             />
             <div className="text-lg md:text-xl text-secondary-foreground font-light leading-relaxed space-y-4 max-w-2xl">
-              <RevealText text="As I continued building software, one question kept coming back: 'What if software could do more than follow instructions?'" className="text-black font-normal" />
+              <RevealText
+                text="As I continued building software, one question kept coming back: 'What if software could do more than follow instructions?'"
+                className="text-black font-normal"
+              />
               <RevealText text="That curiosity introduced me to Artificial Intelligence." />
               <RevealText text="Exploring intelligent systems changed the way I looked at technology. Instead of simply creating applications, I became interested in building solutions that could recognize patterns, make decisions, and interact more naturally with people." />
               <RevealText text="It opened an entirely new perspective on what software could become." />
@@ -120,11 +162,12 @@ export function About() {
               <RevealText text="Today, I enjoy creating complete digital experiences—from the first idea to the final product." />
               <RevealText text="I love combining thoughtful design, reliable engineering, and emerging technologies to build solutions that are practical, scalable, and meaningful." />
               <RevealText text="For me, every project is another opportunity to learn, improve, and create something better than the last." />
-              <RevealText text="And I believe the most exciting part of my journey is still ahead." className="text-black font-normal" />
+              <RevealText
+                text="And I believe the most exciting part of my journey is still ahead."
+                className="text-black font-normal"
+              />
             </div>
           </div>
-
-
         </div>
       </div>
     </section>

@@ -9,9 +9,9 @@ const INTERNSHIPS = [
     responsibilities: [
       "Implemented responsive web pages",
       "Improved website responsiveness",
-      "Gained hands-on web development experience"
+      "Gained hands-on web development experience",
     ],
-    technologies: ["HTML", "CSS", "JavaScript", "Responsive Design"]
+    technologies: ["HTML", "CSS", "JavaScript", "Responsive Design"],
   },
   {
     role: "Web Development Intern",
@@ -24,15 +24,18 @@ const INTERNSHIPS = [
       "Managed backend development and system integration",
       "Worked with Python and SQL databases",
       "Performed API integration and data fetching",
-      "Improved website performance and page speed"
+      "Improved website performance and page speed",
     ],
-    technologies: ["HTML", "CSS", "JavaScript", "Python", "SQL", "API Integration"]
-  }
+    technologies: ["HTML", "CSS", "JavaScript", "Python", "SQL", "API Integration"],
+  },
 ];
 
 export function Internships() {
   return (
-    <section id="internships" className="relative py-32 md:py-56 px-6 md:px-10 pl-12 sm:pl-16 lg:pl-10 border-t border-border">
+    <section
+      id="internships"
+      className="relative py-32 md:py-56 px-6 md:px-10 pl-12 sm:pl-16 lg:pl-10 border-t border-border"
+    >
       <div className="mx-auto max-w-[1600px]">
         <div className="grid grid-cols-12 gap-8 mb-24">
           <div className="col-span-12 md:col-span-4">
@@ -64,16 +67,21 @@ export function Internships() {
                       {item.details}
                     </p>
                   </div>
-                  
+
                   <div className="col-span-12 md:col-span-5">
                     <h3 className="text-3xl md:text-5xl font-medium tracking-[-0.02em] text-black">
                       {item.role}
                     </h3>
-                    <p className="mt-2 text-xl font-light text-secondary-foreground">{item.company}</p>
-                    
+                    <p className="mt-2 text-xl font-light text-secondary-foreground">
+                      {item.company}
+                    </p>
+
                     <div className="mt-8 flex flex-wrap gap-2">
                       {item.technologies.map((t) => (
-                        <span key={t} className="border border-border rounded-full px-3 py-1 bg-muted/20 text-xs text-secondary-foreground">
+                        <span
+                          key={t}
+                          className="border border-border rounded-full px-3 py-1 bg-muted/20 text-xs text-secondary-foreground"
+                        >
                           {t}
                         </span>
                       ))}

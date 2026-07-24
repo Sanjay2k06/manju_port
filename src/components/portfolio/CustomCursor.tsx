@@ -11,7 +11,10 @@ export function CustomCursor() {
     // Only initialize custom cursor on devices that support hover (typically >= 1024px desktop)
     if (typeof window === "undefined" || window.innerWidth < 1024) return;
 
-    setIsVisible(true);
+    if (!isVisible) {
+      setIsVisible(true);
+      return;
+    }
 
     const dot = dotRef.current;
     const ring = ringRef.current;
@@ -38,10 +41,10 @@ export function CustomCursor() {
     const onMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const interactiveEl = target.closest("[data-cursor]");
-      
+
       if (interactiveEl) {
         const cursorType = interactiveEl.getAttribute("data-cursor");
-        
+
         if (cursorType === "view") {
           setBadgeText("VIEW");
           gsap.to(ring, {
@@ -71,7 +74,7 @@ export function CustomCursor() {
     const onMouseOut = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const interactiveEl = target.closest("[data-cursor]");
-      
+
       if (interactiveEl) {
         setBadgeText("");
         gsap.to(ring, {
@@ -108,7 +111,7 @@ export function CustomCursor() {
       document.removeEventListener("mouseleave", onMouseLeave);
       document.removeEventListener("mouseenter", onMouseEnter);
     };
-  }, []);
+  }, [isVisible]);
 
   if (!isVisible) return null;
 
@@ -116,11 +119,11 @@ export function CustomCursor() {
     <>
       <div
         ref={dotRef}
-        className="pointer-events-none fixed left-0 top-0 z-[9999] h-2.5 w-2.5 rounded-full bg-black will-change-transform opacity-0"
+        className="pointer-events-none fixed left-0 top-0 z-[99999] h-2.5 w-2.5 rounded-full bg-black will-change-transform opacity-0"
       />
       <div
         ref={ringRef}
-        className="pointer-events-none fixed left-0 top-0 z-[9998] flex h-8 w-8 items-center justify-center rounded-full border border-black/30 bg-transparent text-[10px] font-semibold tracking-wider text-white select-none will-change-transform transition-all opacity-0"
+        className="pointer-events-none fixed left-0 top-0 z-[99998] flex h-8 w-8 items-center justify-center rounded-full border border-black/30 bg-transparent text-[10px] font-semibold tracking-wider text-white select-none will-change-transform transition-all opacity-0"
         style={{ boxSizing: "border-box" }}
       >
         {badgeText}

@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useMagnetic } from "@/hooks/use-magnetic";
+import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
   { label: "Home", href: "#home" },
@@ -20,6 +21,71 @@ const SOCIALS = [
   { label: "Phone", href: "tel:+919344710273" },
 ];
 
+const STAGGER = 0.035;
+
+const TextRoll: React.FC<{
+  children: string;
+  className?: string;
+  center?: boolean;
+}> = ({ children, className, center = false }) => {
+  return (
+    <motion.span className={cn("relative block overflow-hidden leading-[1.05]", className)}>
+      <div className="flex overflow-hidden">
+        {children.split("").map((l, i) => {
+          const delay = center ? STAGGER * Math.abs(i - (children.length - 1) / 2) : STAGGER * i;
+
+          return (
+            <motion.span
+              variants={{
+                initial: {
+                  y: 0,
+                },
+                hovered: {
+                  y: "-100%",
+                },
+              }}
+              transition={{
+                ease: "easeInOut",
+                delay,
+              }}
+              className="inline-block"
+              key={i}
+            >
+              {l === " " ? "\u00A0" : l}
+            </motion.span>
+          );
+        })}
+      </div>
+      <div className="absolute inset-0 flex overflow-hidden">
+        {children.split("").map((l, i) => {
+          const delay = center ? STAGGER * Math.abs(i - (children.length - 1) / 2) : STAGGER * i;
+
+          return (
+            <motion.span
+              variants={{
+                initial: {
+                  y: "100%",
+                },
+                hovered: {
+                  y: 0,
+                },
+              }}
+              transition={{
+                ease: "easeInOut",
+                delay,
+              }}
+              className="inline-block text-black"
+              key={i}
+            >
+              {l === " " ? "\u00A0" : l}
+            </motion.span>
+          );
+        })}
+      </div>
+    </motion.span>
+  );
+};
+
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -37,7 +103,9 @@ export function Navbar() {
     <>
       <header
         className={`fixed top-0 inset-x-0 z-50 transition-colors duration-500 ${
-          scrolled || open ? "bg-white/90 backdrop-blur-md border-b border-border" : "bg-transparent"
+          scrolled || open
+            ? "bg-white/90 backdrop-blur-md border-b border-border"
+            : "bg-transparent"
         }`}
       >
         <div className="mx-auto max-w-[1600px] px-6 md:px-10 h-16 md:h-20 flex items-center justify-between">
@@ -86,16 +154,21 @@ export function Navbar() {
                   href={item.href}
                   onClick={() => setOpen(false)}
                   data-cursor="hover"
-                  initial={{ y: 40, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
+                  variants={{
+                    initial: { y: 40, opacity: 0 },
+                    animate: { y: 0, opacity: 1 },
+                  }}
+                  initial="initial"
+                  animate="animate"
+                  whileHover="hovered"
                   transition={{
                     delay: 0.25 + i * 0.06,
                     duration: 0.7,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="text-[42px] sm:text-[56px] font-medium tracking-tight leading-[1.05] text-black hover:text-secondary-foreground transition-colors"
+                  className="group text-[42px] sm:text-[56px] font-medium tracking-tight leading-[1.05] text-black transition-colors block"
                 >
-                  {item.label}
+                  <TextRoll>{item.label}</TextRoll>
                 </motion.a>
               ))}
             </nav>
@@ -106,7 +179,12 @@ export function Navbar() {
               className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-secondary-foreground"
             >
               {SOCIALS.map((s) => (
-                <a key={s.label} href={s.href} data-cursor="hover" className="hover:text-black transition-colors">
+                <a
+                  key={s.label}
+                  href={s.href}
+                  data-cursor="hover"
+                  className="hover:text-black transition-colors"
+                >
                   {s.label}
                 </a>
               ))}

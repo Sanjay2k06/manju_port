@@ -19,13 +19,13 @@ const PROJECTS = [
       "Real-time vehicle detection using ultrasonic sensors",
       "Adaptive signal timing optimization to reduce congestion and improve traffic flow",
       "Collision prevention safety logic to protect merging vehicles",
-      "Validation through simulation and physical hardware testing"
+      "Validation through simulation and physical hardware testing",
     ],
     applications: [
       "Smart City Traffic Management",
       "Autonomous Junction Safety Automation",
-      "Active Accident Prevention Systems"
-    ]
+      "Active Accident Prevention Systems",
+    ],
   },
   {
     name: "Hospital Management System",
@@ -43,13 +43,13 @@ const PROJECTS = [
       "Appointment Scheduling and queue tracking system",
       "Doctor Management dashboard with schedule allocation",
       "Automated Billing and invoicing calculation",
-      "Fully responsive and mobile-friendly frontend layout"
+      "Fully responsive and mobile-friendly frontend layout",
     ],
     applications: [
       "Clinic Administration Automation",
       "Electronic Health Records (EHR) Systems",
-      "Hospital Administrative Workflow Management"
-    ]
+      "Hospital Administrative Workflow Management",
+    ],
   },
   {
     name: "Hand Gesture Recognition",
@@ -66,17 +66,25 @@ const PROJECTS = [
       "Real-time hand tracking and skeletal keypoint estimation",
       "Custom hand gesture mapping logic for distinct actions",
       "Live camera stream visualization overlay",
-      "Focus on secure triggers and emergency notification applications"
+      "Focus on secure triggers and emergency notification applications",
     ],
     applications: [
       "Defense & Security Systems",
       "Human Computer Interaction (HCI)",
-      "Contactless Controls for sterile/clean environments"
-    ]
-  }
+      "Contactless Controls for sterile/clean environments",
+    ],
+  },
 ];
 
-function Card({ project, i, total }: { project: (typeof PROJECTS)[number]; i: number; total: number }) {
+function Card({
+  project,
+  i,
+  total,
+}: {
+  project: (typeof PROJECTS)[number];
+  i: number;
+  total: number;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const detailsRef = useRef<HTMLDivElement>(null);
 
@@ -107,7 +115,7 @@ function Card({ project, i, total }: { project: (typeof PROJECTS)[number]; i: nu
           start: "top 95%",
           toggleActions: "play none none reverse",
         },
-      }
+      },
     );
   }, []);
 
@@ -163,7 +171,7 @@ function Card({ project, i, total }: { project: (typeof PROJECTS)[number]; i: nu
                 {project.problem}
               </p>
             </div>
-            
+
             <div className="border-t border-border/60 pt-4">
               <h4 className="text-xs tracking-[0.2em] uppercase text-secondary-foreground font-semibold mb-2">
                 Solution
