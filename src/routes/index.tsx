@@ -9,6 +9,7 @@ import { Experience } from "@/components/portfolio/Experience";
 import { Achievements } from "@/components/portfolio/Achievements";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
+import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,7 +36,8 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <SmoothScrollProvider>
-      <main className="bg-white text-black">
+      <ScrollProgress />
+      <main className="bg-white text-black relative">
         <Navbar />
         <Hero />
         <About />
@@ -45,6 +47,7 @@ function Index() {
         <Achievements />
         <Contact />
         <Footer />
+        <div className="pointer-events-none fixed inset-0 z-[70] mix-blend-multiply opacity-[0.035] noise" />
       </main>
     </SmoothScrollProvider>
   );
