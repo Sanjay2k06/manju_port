@@ -1,19 +1,18 @@
 import { Reveal, RevealText } from "./ScrollReveal";
 
 const LINKS = [
-  { label: "Email", href: "mailto:hello@example.com", value: "hello@example.com" },
-  { label: "LinkedIn", href: "https://linkedin.com", value: "in/yourname" },
-  { label: "GitHub", href: "https://github.com", value: "@yourname" },
-  { label: "Resume", href: "#", value: "Download PDF" },
+  { label: "Phone", href: "tel:+919344710273", value: "+91 9344710273" },
+  { label: "Email", href: "mailto:manjuladevimari8@gamil.com", value: "manjuladevimari8@gamil.com" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/manjula-devi-97286b35a", value: "in/manjula-devi-97286b35a" },
 ];
 
 export function Contact() {
   return (
-    <section id="contact" className="relative py-32 md:py-56 px-6 md:px-10 border-t border-border">
+    <section id="contact" className="relative py-32 md:py-56 px-6 md:px-10 pl-12 sm:pl-16 lg:pl-10 border-t border-border">
       <div className="mx-auto max-w-[1600px]">
         <Reveal>
           <p className="text-xs tracking-[0.25em] uppercase text-secondary-foreground mb-16">
-            (06) — Contact
+            Contact
           </p>
         </Reveal>
         <RevealText
@@ -27,6 +26,7 @@ export function Contact() {
             <Reveal key={l.label} delay={i * 0.05}>
               <a
                 href={l.href}
+                data-cursor="hover"
                 className="group flex items-baseline justify-between border-b border-border pb-6 hover:border-black transition-colors"
               >
                 <div>

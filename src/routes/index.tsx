@@ -5,26 +5,29 @@ import { Hero } from "@/components/portfolio/Hero";
 import { About } from "@/components/portfolio/About";
 import { Skills } from "@/components/portfolio/Skills";
 import { Projects } from "@/components/portfolio/Projects";
-import { Experience } from "@/components/portfolio/Experience";
+import { Internships } from "@/components/portfolio/Internships";
 import { Achievements } from "@/components/portfolio/Achievements";
+import { Certifications } from "@/components/portfolio/Certifications";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
 import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
+import { CustomCursor } from "@/components/portfolio/CustomCursor";
+import { JourneyPath } from "@/components/portfolio/JourneyPath";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Portfolio — Independent Engineer & Designer" },
+      { title: "Manjula Devi — Portfolio" },
       {
         name: "description",
         content:
-          "A minimal, editorial portfolio of software crafted at the intersection of artificial intelligence and product design.",
+          "Computer Science graduate skilled in full-stack web development with HTML, CSS, JavaScript, Python, and SQL. Currently expanding expertise in React.js and AI/ML.",
       },
-      { property: "og:title", content: "Portfolio — Independent Engineer & Designer" },
+      { property: "og:title", content: "Manjula Devi — Portfolio" },
       {
         property: "og:description",
         content:
-          "Selected work, experience, and craft. Building intelligent digital experiences.",
+          "Full-Stack Web Development and Artificial Intelligence portfolio of Manjula Devi.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -36,15 +39,18 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <SmoothScrollProvider>
+      <CustomCursor />
       <ScrollProgress />
-      <main className="bg-white text-black relative">
+      <main className="bg-white text-black relative z-10">
+        <JourneyPath />
         <Navbar />
         <Hero />
         <About />
         <Skills />
         <Projects />
-        <Experience />
+        <Internships />
         <Achievements />
+        <Certifications />
         <Contact />
         <Footer />
         <div className="pointer-events-none fixed inset-0 z-[70] mix-blend-multiply opacity-[0.035] noise" />

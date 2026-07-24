@@ -1,5 +1,6 @@
 import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -26,39 +27,58 @@ export function Hero() {
     return () => window.removeEventListener("mousemove", onMove);
   }, [mx, my]);
 
-  const lines = ["Building", "Intelligent", "Digital Experiences."];
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    // Word/line slides up on enter
+    const targetWords = el.querySelectorAll(".hero-line-word");
+    gsap.fromTo(
+      targetWords,
+      { y: "115%" },
+      {
+        y: "0%",
+        duration: 1.4,
+        stagger: 0.14,
+        ease: "power4.out",
+        delay: 0.25,
+      }
+    );
+
+    // Summary fade + translate
+    const targetSummary = el.querySelector(".hero-summary");
+    gsap.fromTo(
+      targetSummary,
+      { opacity: 0, y: 25 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        ease: "power3.out",
+        delay: 1.0,
+      }
+    );
+  }, []);
+
+  const lines = ["Manjula", "Devi", "Software Engineer."];
 
   return (
     <section
       id="home"
       ref={ref}
-      className="relative min-h-[110vh] w-full flex flex-col justify-between pt-32 pb-16 px-6 md:px-10 overflow-hidden"
+      className="relative min-h-[110vh] w-full flex flex-col justify-between pt-32 pb-16 px-6 md:px-10 pl-12 sm:pl-16 lg:pl-10 overflow-hidden"
     >
       <motion.div style={{ scale, opacity, y, filter }} className="flex-1 flex flex-col justify-center will-change-transform">
         <div className="mx-auto w-full max-w-[1600px]">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[11px] sm:text-xs tracking-[0.3em] uppercase text-secondary-foreground mb-12"
-          >
-            Portfolio — MMXXVI
-          </motion.p>
-
           <motion.h1
             style={{ x: tx, y: ty }}
             className="text-[15vw] md:text-[10.5vw] leading-[0.92] tracking-[-0.05em] font-medium text-black"
           >
             {lines.map((line, i) => (
               <span key={i} className="block overflow-hidden pb-[0.05em]">
-                <motion.span
-                  className="block"
-                  initial={{ y: "115%" }}
-                  animate={{ y: "0%" }}
-                  transition={{ duration: 1.4, delay: 0.25 + i * 0.14, ease: [0.19, 1, 0.22, 1] }}
-                >
+                <span className="hero-line-word block translate-y-[115%]">
                   {line}
-                </motion.span>
+                </span>
               </span>
             ))}
           </motion.h1>
@@ -69,15 +89,11 @@ export function Hero() {
         style={{ opacity }}
         className="mx-auto w-full max-w-[1600px] flex flex-col md:flex-row md:items-end md:justify-between gap-8"
       >
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-md text-secondary-foreground text-base md:text-lg leading-relaxed font-light"
+        <div
+          className="hero-summary max-w-md text-secondary-foreground text-base md:text-lg leading-relaxed font-light opacity-0"
         >
-          An independent engineer & designer crafting software at the intersection of
-          artificial intelligence and human-centered product design.
-        </motion.p>
+          Computer Science graduate skilled in full-stack web development, expanding expertise in React.js, Artificial Intelligence, and Machine Learning.
+        </div>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

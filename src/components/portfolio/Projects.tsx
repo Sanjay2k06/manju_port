@@ -1,116 +1,204 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { gsap } from "gsap";
 import { Reveal } from "./ScrollReveal";
 
 const PROJECTS = [
   {
-    name: "Aperture",
+    name: "T-Section Road Safety Management System",
     year: "2025",
-    tag: "Computer Vision",
+    tag: "IoT",
     description:
-      "A real-time visual intelligence platform that transforms raw camera streams into structured, searchable data using on-device models.",
-    stack: ["Next.js", "YOLO", "FastAPI", "PostgreSQL"],
+      "Implemented an IoT-based adaptive traffic light system using ESP32 and ultrasonic sensors for real-time vehicle detection.",
+    problem:
+      "Static traffic signals fail to adapt to live traffic density, leading to congestion and increased risk of collisions at T-sections.",
+    solution:
+      "Developed an ESP32-powered adaptive traffic light controller that dynamically optimizes signal timing based on real-time vehicle detection from ultrasonic sensors.",
+    stack: ["ESP32", "Ultrasonic Sensors", "IoT", "Hardware Testing", "Traffic Management"],
+    features: [
+      "Real-time vehicle detection using ultrasonic sensors",
+      "Adaptive signal timing optimization to reduce congestion and improve traffic flow",
+      "Collision prevention safety logic to protect merging vehicles",
+      "Validation through simulation and physical hardware testing"
+    ],
+    applications: [
+      "Smart City Traffic Management",
+      "Autonomous Junction Safety Automation",
+      "Active Accident Prevention Systems"
+    ]
   },
   {
-    name: "Lumen OS",
-    year: "2024",
-    tag: "Productivity",
+    name: "Hospital Management System",
+    year: "2025",
+    tag: "Full Stack Web Application",
     description:
-      "A minimal operating layer for personal knowledge — capture, connect, and retrieve ideas with a keyboard-first, latency-obsessed interface.",
-    stack: ["React", "TypeScript", "Rust", "SQLite"],
+      "Created a web-based hospital management platform with modules for Patient Registration, Appointments, Doctor Management, and Billing.",
+    problem:
+      "Manual scheduling and records management in clinic settings lead to patient delays, double-booking, and invoicing errors.",
+    solution:
+      "Created an automated, full-stack hospital management web application using Python and MySQL to consolidate patient, doctor, and billing data.",
+    stack: ["Python", "MySQL", "HTML", "CSS", "Responsive Design"],
+    features: [
+      "Patient Registration and profile management module",
+      "Appointment Scheduling and queue tracking system",
+      "Doctor Management dashboard with schedule allocation",
+      "Automated Billing and invoicing calculation",
+      "Fully responsive and mobile-friendly frontend layout"
+    ],
+    applications: [
+      "Clinic Administration Automation",
+      "Electronic Health Records (EHR) Systems",
+      "Hospital Administrative Workflow Management"
+    ]
   },
   {
-    name: "Foldwise",
-    year: "2024",
-    tag: "AI Tooling",
+    name: "Hand Gesture Recognition",
+    year: "2025",
+    tag: "Artificial Intelligence & Computer Vision",
     description:
-      "An assistant for design engineers that turns loose requirements into production-ready specifications, powered by fine-tuned LLMs.",
-    stack: ["Next.js", "Gemini", "Python", "Redis"],
-  },
-  {
-    name: "Vantage",
-    year: "2023",
-    tag: "Editorial",
-    description:
-      "An editorial analytics tool for independent writers — quiet metrics that surface signal instead of vanity.",
-    stack: ["React", "TailwindCSS", "Node", "Postgres"],
-  },
+      "Implemented a real-time hand gesture recognition system using MediaPipe and OpenCV.",
+    problem:
+      "Traditional physical input devices limit mobility and contact-free control, which is essential in sterile, secure, or emergency situations.",
+    solution:
+      "Engineered a contact-free, real-time hand gesture recognition application using MediaPipe and custom gesture mapping to trigger software actions.",
+    stack: ["MediaPipe", "Computer Vision", "Python", "AI"],
+    features: [
+      "Real-time hand tracking and skeletal keypoint estimation",
+      "Custom hand gesture mapping logic for distinct actions",
+      "Live camera stream visualization overlay",
+      "Focus on secure triggers and emergency notification applications"
+    ],
+    applications: [
+      "Defense & Security Systems",
+      "Human Computer Interaction (HCI)",
+      "Contactless Controls for sterile/clean environments"
+    ]
+  }
 ];
 
 function Card({ project, i, total }: { project: (typeof PROJECTS)[number]; i: number; total: number }) {
   const ref = useRef<HTMLDivElement>(null);
+  const detailsRef = useRef<HTMLDivElement>(null);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
   const isLast = i === total - 1;
-  const scale = useTransform(scrollYProgress, [0, 1], [1, isLast ? 1 : 0.9]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, isLast ? 1 : 0.4]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, isLast ? 0 : -60]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, isLast ? 1 : 0.93]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, isLast ? 1 : 0.5]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, isLast ? 0 : -40]);
+
+  useEffect(() => {
+    const el = detailsRef.current;
+    if (!el) return;
+
+    gsap.fromTo(
+      el,
+      { clipPath: "inset(100% 0% 0% 0%)", opacity: 0, y: 40 },
+      {
+        clipPath: "inset(0% 0% 0% 0%)",
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 95%",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+  }, []);
 
   return (
     <div
       ref={ref}
-      className="sticky top-0 h-screen w-full flex items-center"
+      className="sticky top-0 min-h-screen w-full flex items-center py-4 md:py-24"
       style={{ zIndex: i + 1 }}
     >
       <motion.article
+        data-cursor="view"
         style={{ scale, opacity, y }}
-        className="w-full h-full bg-white border-t border-border flex items-center will-change-transform"
+        className="w-full max-h-[90vh] lg:max-h-none overflow-y-auto lg:overflow-y-visible bg-white border-t border-border py-6 md:py-16 will-change-transform shadow-sm"
       >
-        <div className="mx-auto max-w-[1600px] w-full px-6 md:px-10 grid grid-cols-12 gap-8 items-center">
-          <div className="col-span-12 md:col-span-5">
-            <div className="flex items-center gap-4 mb-8">
-              <p className="text-[11px] tracking-[0.3em] uppercase text-secondary-foreground">
-                0{i + 1} / {String(total).padStart(2, "0")}
-              </p>
-              <span className="w-8 h-px bg-border" />
+        <div className="mx-auto max-w-[1600px] w-full px-6 md:px-10 pl-12 sm:pl-16 lg:pl-10 grid grid-cols-12 gap-6 md:gap-8 items-start">
+          {/* Left Column: Basic Details */}
+          <div className="col-span-12 lg:col-span-5 pr-0 lg:pr-8">
+            <div className="flex items-center gap-4 mb-4 md:mb-6">
               <p className="text-[11px] tracking-[0.3em] uppercase text-secondary-foreground">
                 {project.tag} · {project.year}
               </p>
             </div>
-            <h3 className="text-6xl md:text-[7.5vw] font-medium tracking-[-0.05em] leading-[0.9] mb-10">
+            <h3 className="text-2xl sm:text-4xl lg:text-[5.5vw] font-medium tracking-[-0.04em] leading-[0.95] mb-4 md:mb-8 text-black">
               {project.name}
             </h3>
-            <p className="text-lg md:text-xl text-secondary-foreground font-light leading-relaxed max-w-md mb-12">
+            <p className="text-sm sm:text-lg text-secondary-foreground font-light leading-relaxed mb-4 md:mb-8">
               {project.description}
             </p>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-secondary-foreground mb-10">
+            <div className="flex flex-wrap gap-2 text-xs sm:text-sm text-secondary-foreground mb-4 md:mb-8">
               {project.stack.map((s) => (
-                <span key={s}>{s}</span>
-              ))}
-            </div>
-            <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm">
-              {["GitHub", "Live", "Case Study"].map((l) => (
-                <a
-                  key={l}
-                  href="#"
-                  className="group inline-flex items-center gap-2 text-black"
+                <span
+                  key={s}
+                  data-cursor="hover"
+                  className="border border-border rounded-full px-3 py-1 bg-muted/30 text-xs transition-colors hover:bg-black hover:text-white"
                 >
-                  <span className="relative">
-                    {l}
-                    <span className="absolute -bottom-1 left-0 h-px w-full bg-black origin-right scale-x-0 group-hover:origin-left group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]" />
-                  </span>
-                  <span className="transition-transform duration-500 group-hover:translate-x-1">→</span>
-                </a>
+                  {s}
+                </span>
               ))}
             </div>
           </div>
-          <div className="col-span-12 md:col-span-7 aspect-[4/3] md:aspect-[16/11] bg-[#fafafa] border border-border relative overflow-hidden">
-            <motion.div
-              style={{
-                scale: useTransform(scrollYProgress, [0, 1], [1.05, 1.2]),
-              }}
-              className="absolute inset-0 flex items-center justify-center will-change-transform"
-            >
-              <span className="text-[28vw] md:text-[16vw] font-medium tracking-[-0.06em] text-black/[0.05] select-none leading-none">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-            </motion.div>
-            <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between text-[11px] tracking-[0.25em] uppercase text-secondary-foreground">
-              <span>{project.name}</span>
-              <span>—</span>
-              <span>{project.year}</span>
+
+          {/* Right Column: In-Depth Details */}
+          <div
+            ref={detailsRef}
+            className="col-span-12 lg:col-span-7 bg-muted/20 border border-border p-4 sm:p-6 md:p-8 rounded-lg space-y-4 md:space-y-6"
+            style={{ clipPath: "inset(100% 0% 0% 0%)" }}
+          >
+            <div>
+              <h4 className="text-xs tracking-[0.2em] uppercase text-secondary-foreground font-semibold mb-2">
+                Problem Statement
+              </h4>
+              <p className="text-sm md:text-base text-black font-light leading-relaxed">
+                {project.problem}
+              </p>
+            </div>
+            
+            <div className="border-t border-border/60 pt-4">
+              <h4 className="text-xs tracking-[0.2em] uppercase text-secondary-foreground font-semibold mb-2">
+                Solution
+              </h4>
+              <p className="text-sm md:text-base text-black font-light leading-relaxed">
+                {project.solution}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-border/60 pt-4">
+              <div>
+                <h4 className="text-xs tracking-[0.2em] uppercase text-secondary-foreground font-semibold mb-3">
+                  Key Features
+                </h4>
+                <ul className="list-disc list-inside text-xs text-secondary-foreground space-y-2 font-light pl-1">
+                  {project.features.map((f, idx) => (
+                    <li key={idx} className="leading-relaxed">
+                      <span className="text-black">{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="text-xs tracking-[0.2em] uppercase text-secondary-foreground font-semibold mb-3">
+                  Applications
+                </h4>
+                <ul className="list-disc list-inside text-xs text-secondary-foreground space-y-2 font-light pl-1">
+                  {project.applications.map((a, idx) => (
+                    <li key={idx} className="leading-relaxed">
+                      <span className="text-black">{a}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -122,19 +210,19 @@ function Card({ project, i, total }: { project: (typeof PROJECTS)[number]; i: nu
 export function Projects() {
   return (
     <section id="projects" className="relative border-t border-border">
-      <div className="px-6 md:px-10 pt-32 md:pt-56 pb-16 mx-auto max-w-[1600px]">
+      <div className="px-6 md:px-10 pl-12 sm:pl-16 lg:pl-10 pt-32 md:pt-48 pb-16 mx-auto max-w-[1600px]">
         <div className="grid grid-cols-12 gap-8">
           <div className="col-span-12 md:col-span-4">
             <Reveal>
               <p className="text-[11px] tracking-[0.3em] uppercase text-secondary-foreground">
-                (03) — Selected Work
+                Projects
               </p>
             </Reveal>
           </div>
           <div className="col-span-12 md:col-span-8">
             <Reveal>
               <h2 className="text-5xl md:text-7xl font-medium tracking-[-0.04em] leading-[1]">
-                A few things I&apos;ve built.
+                Academic & Practical Works.
               </h2>
             </Reveal>
           </div>

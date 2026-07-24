@@ -1,26 +1,30 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useMagnetic } from "@/hooks/use-magnetic";
 
 const NAV_ITEMS = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
+  { label: "Education", href: "#education" },
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Achievements", href: "#achievements" },
+  { label: "Internships", href: "#internships" },
+  { label: "Achievements & Workshops", href: "#achievements" },
+  { label: "Certifications", href: "#certifications" },
   { label: "Contact", href: "#contact" },
 ];
 
 const SOCIALS = [
-  { label: "GitHub", href: "https://github.com" },
-  { label: "LinkedIn", href: "https://linkedin.com" },
-  { label: "Email", href: "mailto:hello@example.com" },
-  { label: "Resume", href: "#" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/manjula-devi-97286b35a" },
+  { label: "Email", href: "mailto:manjuladevimari8@gamil.com" },
+  { label: "Phone", href: "tel:+919344710273" },
 ];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const logoRef = useMagnetic<HTMLAnchorElement>();
+  const toggleRef = useMagnetic<HTMLButtonElement>();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -37,12 +41,19 @@ export function Navbar() {
         }`}
       >
         <div className="mx-auto max-w-[1600px] px-6 md:px-10 h-16 md:h-20 flex items-center justify-between">
-          <a href="#home" className="text-black font-medium tracking-tight text-lg">
-            ●&nbsp;&nbsp;Studio
+          <a
+            ref={logoRef}
+            href="#home"
+            className="text-black font-medium tracking-tight text-lg"
+            data-cursor="hover"
+          >
+            Manjula Devi
           </a>
           <button
+            ref={toggleRef}
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
+            data-cursor="hover"
             className="relative w-10 h-10 flex flex-col items-end justify-center gap-1.5 group"
           >
             <span
@@ -74,6 +85,7 @@ export function Navbar() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
+                  data-cursor="hover"
                   initial={{ y: 40, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{
@@ -94,7 +106,7 @@ export function Navbar() {
               className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-secondary-foreground"
             >
               {SOCIALS.map((s) => (
-                <a key={s.label} href={s.href} className="hover:text-black transition-colors">
+                <a key={s.label} href={s.href} data-cursor="hover" className="hover:text-black transition-colors">
                   {s.label}
                 </a>
               ))}
