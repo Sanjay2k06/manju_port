@@ -56,7 +56,7 @@ export function About() {
             <Reveal delay={0.1}>
               <div className="w-full max-w-[280px] sm:max-w-[340px] aspect-[4/5] overflow-hidden rounded-lg border border-border bg-[#fafafa] shadow-sm">
                 <img
-                  src="/manju_portrait.png"
+                  src="/manju_portrait.jpeg"
                   alt="Manjula Devi Portrait"
                   data-cursor="hover"
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out"
